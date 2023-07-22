@@ -16,26 +16,15 @@ def recommend():
     # Extract request data
     data = request.get_json()
     searchTerm = data['searchTerm']
-    try:
+
     # Create OpenAI ChatCompletion request
-        response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.DeepAi, messages=[
-        
-        #response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.GetGpt, messages=[
+    response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.DeepAi, messages=[
+                                      {"role": "system", "content": "You are an assistant to help recommend movies and shows for people."},
+            {"role": "user", "content": 'Movie and show names should always and only one be in quotes in all responses, answer concisely'},
+            {"role": "assistant", "content": "Yes, I will do that."},
+            {'role': 'user', 'content': searchTerm}])
 
-                                          {"role": "system", "content": "You are an assistant to help recommend movies and shows for people."},
-                {"role": "user", "content": 'Movie and show names should always and only one be in quotes in all responses, answer concisely'},
-                {"role": "assistant", "content": "Yes, I will do that."},
-                {'role': 'user', 'content': searchTerm}])
-
-        print(response)
-    except Exception as e:
-        response = g4f.ChatCompletion.create(model=g4f.Model.gpt_4, provider=g4f.Provider.Bing, messages=[
-                                          {"role": "system", "content": "You are an assistant to help recommend movies and shows for people."},
-                {"role": "user", "content": 'Movie and show names should always and only one be in quotes in all responses, answer concisely'},
-                {"role": "assistant", "content": "Yes, I will do that."},
-                {'role': 'user', 'content': searchTerm}])
-        print(response)
-
+    print(response)
     word_count = count_words(response)
     if(count_words==0):
         response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.EasyChat, messages=[
