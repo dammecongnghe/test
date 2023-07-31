@@ -113,7 +113,7 @@ def _create_completion(model: str, messages: list, stream: bool, **kwargs):
     'http': 'http://' + random_proxy,
     
     }
-
+    print(proxies)
     r = requests.post("https://api.deepai.org/chat_response", headers=headers, files=files, stream=True, proxies=proxies)
 
     for chunk in r.iter_content(chunk_size=None):
