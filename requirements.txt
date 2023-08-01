@@ -10,3 +10,4 @@ websockets
 pyexecjs
 flask-cors
 requests
+freeGPT
