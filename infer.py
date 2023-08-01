@@ -61,7 +61,7 @@ async def recommend():
     prompt = 'You are an assistant to help recommend movies and shows for people. Movie and show names should always and only one be in quotes in all responses, answer concisely'
     # Create OpenAI ChatCompletion request
     prompt = prompt + searchTerm
-    response = await getattr(freeGPT, "gpt4").Completion.create(prompt)
+    response = await getattr(freeGPT, "gpt3").Completion.create(prompt)
     print(response)
     return jsonify(response), 200
 
