@@ -44,7 +44,7 @@ def _create_completion(model: str, messages: list, stream: bool, **kwargs):
     'http': f'http://32.223.6.94:80'
 }
     print(proxies)
-    r = requests.post("https://api.deepai.org/chat_response", headers=headers, files=files, stream=True, proxies=proxies)
+    r = requests.post("https://api.deepai.org/make_me_a_pizza", headers=headers, files=files, stream=True, proxies=proxies)
 
     for chunk in r.iter_content(chunk_size=None):
         r.raise_for_status()
