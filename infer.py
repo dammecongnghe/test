@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from freeGPT.gpt4 import Completion
+from freeGPT.falcon_40b import Completion
 from flask_cors import CORS
 import g4f
 import sys
@@ -62,7 +62,7 @@ async def recommend():
     # Create OpenAI ChatCompletion request
     prompt = prompt + searchTerm
     completion = Completion()
-    '''
+    
     response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.DeepAi,  messages=[
                                       {"role": "system", "content": "You are an assistant to help recommend movies and shows for people."},
             {"role": "user", "content": 'Movie and show names should always and only one be in quotes in all responses, answer concisely'},
@@ -70,6 +70,7 @@ async def recommend():
             {'role': 'user', 'content': searchTerm}])
     '''
     response = await completion.create(prompt=prompt)
+    '''
     print(response)
     return jsonify(response), 200
 
