@@ -62,15 +62,15 @@ async def recommend():
     # Create OpenAI ChatCompletion request
     prompt = prompt + searchTerm
     completion = Completion()
-    '''
-    response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.Yqcloud,  messages=[
+    
+    response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.You,  messages=[
                                       {"role": "system", "content": "You are an assistant to help recommend movies and shows for people."},
             {"role": "user", "content": 'Movie and show names should always and only one be in quotes in all responses, answer concisely'},
             {"role": "assistant", "content": "Yes, I will do that."},
             {'role': 'user', 'content': searchTerm}])
     '''
     response = await completion.create(prompt=prompt)
-    
+    '''
     
     print(response)
     return jsonify(response), 200
