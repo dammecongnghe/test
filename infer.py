@@ -63,7 +63,7 @@ async def recommend():
     prompt = prompt + searchTerm
     completion = Completion()
     
-    response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.Wewordle,  messages=[
+    response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.Yqcloud,  messages=[
                                       {"role": "system", "content": "You are an assistant to help recommend movies and shows for people."},
             {"role": "user", "content": 'Movie and show names should always and only one be in quotes in all responses, answer concisely'},
             {"role": "assistant", "content": "Yes, I will do that."},
