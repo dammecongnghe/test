@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from freeGPT.falcon_40b import Completion
+from freeGPT.gpt3 import Completion
 from flask_cors import CORS
 import g4f
 import sys
@@ -58,7 +58,7 @@ async def recommend():
     data = request.get_json()
     searchTerm = data['searchTerm']
     random_proxy = random.choice(proxies)
-    prompt = 'You are an assistant to help recommend movies and shows for people. Movie and show names should always and only one be in quotes in all responses, answer concisely'
+    prompt = 'You are an assistant to help recommend movies and shows for people. Movie and show names should always and only one be in quotes in all responses, answer concisely. '
     # Create OpenAI ChatCompletion request
     prompt = prompt + searchTerm
     completion = Completion()
