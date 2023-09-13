@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from freeGPT.gpt4 import Completion
+from freeGPT.falcon_40b import Completion
 from flask_cors import CORS
 import g4f
 import sys
