@@ -15,7 +15,7 @@ def main():
     prompt = data['searchTerm']
     print(prompt)
     try:
-        resp = Client.create_completion("gpt4", prompt)
+        resp = Client.create_completion("falcon_40b", prompt)
         print(f"🤖: {resp}")
         return jsonify(resp), 200
     except Exception as e:
