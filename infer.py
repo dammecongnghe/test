@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 from freeGPT import Client
 from asyncio import run
 from flask_cors import CORS
-import g4f
 import sys
 sys.path.append('c:/python37/lib/site-packages')
 import random
