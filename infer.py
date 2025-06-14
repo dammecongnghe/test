@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 #from freeGPT import AsyncClient
 from asyncio import run
 from flask_cors import CORS
@@ -163,7 +163,36 @@ async def main():
         link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
     if link_tag:
         full_url = 'https://guessmymovie.com' + link_tag['href']
-        return jsonify({'result_url': full_url}), 200
+        headers = {
+            'Accept': '*/*',
+            'Accept-Language': 'vi,zh-CN;q=0.9,zh;q=0.8,en;q=0.7,en-US;q=0.6',
+            'Connection': 'keep-alive',
+            'HX-Current-URL': 'https://guessmymovie.com/',
+            'HX-Request': 'true',
+            'Referer': 'https://guessmymovie.com/',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0',
+            'sec-ch-ua': '"Microsoft Edge";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+        }
+        
+        cookies = {
+            'session': 'eyJ1c2VyX2lkIjogIjVlMmM1YTk1LWY1NmUtNDU4ZS04MTAxLWRjNGQ5ZDc2MDZiOSJ9.aE0OVQ.6or-K7iLHyLHv71H6ygDzjvQkv4'
+        }
+        
+        
+        response = requests.get(full_url,headers=headers, cookies=cookies)
+        print(response.text)
+        
+
+        response = requests.get(full_url, headers=headers, cookies=cookies)
+        
+        # Return raw HTML content directly
+        return Response(response.text, status=200, content_type='text/html')
+        
     else:
         
         return jsonify({'error': 'Result link not found'}), 404
