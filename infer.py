@@ -108,7 +108,7 @@ async def main():
     }
     
     data = {
-        'description': 'movie similar spider man'
+        'description': prompt
     }
     
     response = requests.post(url, headers=headers, cookies=cookies, data=data)
