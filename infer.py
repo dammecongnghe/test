@@ -22,6 +22,8 @@ async def main():
     except Exception as e:
         print(f"🤖: {e}")
     '''
+
+    '''
     import requests
 
     url = 'https://deepsearch.mycelebs.com/api/finder/voice/maimovie'
@@ -78,8 +80,77 @@ async def main():
     }
 
     response = requests.post(url, headers=headers, json=data)
+    '''
+    import requests
 
-    return response.json(), 200
+    url = 'https://guessmymovie.com/submit_description?droopy=true&showad=true'
+    
+    headers = {
+        'Accept': '*/*',
+        'Accept-Language': 'vi,zh-CN;q=0.9,zh;q=0.8,en;q=0.7,en-US;q=0.6',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'HX-Current-URL': 'https://guessmymovie.com/',
+        'HX-Request': 'true',
+        'Origin': 'https://guessmymovie.com',
+        'Referer': 'https://guessmymovie.com/',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0',
+        'sec-ch-ua': '"Microsoft Edge";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+    }
+    
+    cookies = {
+        'session': 'eyJ1c2VyX2lkIjogIjVlMmM1YTk1LWY1NmUtNDU4ZS04MTAxLWRjNGQ5ZDc2MDZiOSJ9.aE0OSw.3Gy5QM2DXkag0hWc15_6hT-oVTY'
+    }
+    
+    data = {
+        'description': 'movie similar spider man'
+    }
+    
+    response = requests.post(url, headers=headers, cookies=cookies, data=data)
+    
+    print(response.text)
+    import requests
+    from bs4 import BeautifulSoup
+    url = 'https://guessmymovie.com/poll?droopy=true'
+    
+    headers = {
+        'Accept': '*/*',
+        'Accept-Language': 'vi,zh-CN;q=0.9,zh;q=0.8,en;q=0.7,en-US;q=0.6',
+        'Connection': 'keep-alive',
+        'HX-Current-URL': 'https://guessmymovie.com/',
+        'HX-Request': 'true',
+        'Referer': 'https://guessmymovie.com/',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0',
+        'sec-ch-ua': '"Microsoft Edge";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+    }
+    
+    cookies = {
+        'session': 'eyJ1c2VyX2lkIjogIjVlMmM1YTk1LWY1NmUtNDU4ZS04MTAxLWRjNGQ5ZDc2MDZiOSJ9.aE0OVQ.6or-K7iLHyLHv71H6ygDzjvQkv4'
+    }
+    
+    response = requests.get(url, headers=headers, cookies=cookies)
+    print('split')
+    print(response.text)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Find the <a> tag with href that starts with /results/
+    link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
+    
+    if link_tag:
+        full_url = 'https://guessmymovie.com' + link_tag['href']
+        return jsonify({'result_url': full_url}), 200
+    else:
+        return jsonify({'error': 'Result link not found'}), 404
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
