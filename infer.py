@@ -145,11 +145,27 @@ async def main():
     
     # Find the <a> tag with href that starts with /results/
     link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
+    if not link_tag:
+        response = requests.get(url, headers=headers, cookies=cookies)
+        print('split')
+        print(response.text)
+        soup = BeautifulSoup(response.text, 'html.parser')
     
+        # Find the <a> tag with href that starts with /results/
+        link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
+    if not link_tag:
+        response = requests.get(url, headers=headers, cookies=cookies)
+        print('split')
+        print(response.text)
+        soup = BeautifulSoup(response.text, 'html.parser')
+    
+        # Find the <a> tag with href that starts with /results/
+        link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
     if link_tag:
         full_url = 'https://guessmymovie.com' + link_tag['href']
         return jsonify({'result_url': full_url}), 200
     else:
+        
         return jsonify({'error': 'Result link not found'}), 404
 
 if __name__ == '__main__':
