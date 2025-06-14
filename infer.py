@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, Response
+import time
 #from freeGPT import AsyncClient
 from asyncio import run
 from flask_cors import CORS
@@ -145,7 +146,9 @@ async def main():
     
     # Find the <a> tag with href that starts with /results/
     link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
+    
     if not link_tag:
+        time.sleep(1)
         response = requests.get(url, headers=headers, cookies=cookies)
         print('split')
         print(response.text)
@@ -153,7 +156,9 @@ async def main():
     
         # Find the <a> tag with href that starts with /results/
         link_tag = soup.find('a', href=lambda x: x and x.startswith('/results/'))
+    
     if not link_tag:
+        time.sleep(1)
         response = requests.get(url, headers=headers, cookies=cookies)
         print('split')
         print(response.text)
