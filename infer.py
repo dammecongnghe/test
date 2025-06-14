@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from freeGPT import AsyncClient
+#from freeGPT import AsyncClient
 from asyncio import run
 from flask_cors import CORS
 import sys
