@@ -84,6 +84,16 @@ async def main():
     '''
     import requests
 
+    # Make a request (e.g., to guessmymovie.com homepage)
+    response = requests.get("https://guessmymovie.com")
+    
+    # Check if the 'session' cookie is present
+    if 'session' in response.cookies:
+        session_id = response.cookies['session']
+        print("Session ID:", session_id)
+    else:
+        print("No session cookie found.")
+
     url = 'https://guessmymovie.com/submit_description?droopy=true&showad=true'
     
     headers = {
@@ -105,7 +115,7 @@ async def main():
     }
     
     cookies = {
-        'session': 'eyJ1c2VyX2lkIjogIjVlMmM1YTk1LWY1NmUtNDU4ZS04MTAxLWRjNGQ5ZDc2MDZiOSJ9.aE0OSw.3Gy5QM2DXkag0hWc15_6hT-oVTY'
+        'session': session_id
     }
     
     data = {
@@ -136,7 +146,7 @@ async def main():
     }
     
     cookies = {
-        'session': 'eyJ1c2VyX2lkIjogIjVlMmM1YTk1LWY1NmUtNDU4ZS04MTAxLWRjNGQ5ZDc2MDZiOSJ9.aE0OVQ.6or-K7iLHyLHv71H6ygDzjvQkv4'
+        'session': session_id
     }
     
     response = requests.get(url, headers=headers, cookies=cookies)
@@ -185,7 +195,7 @@ async def main():
         }
         
         cookies = {
-            'session': 'eyJ1c2VyX2lkIjogIjVlMmM1YTk1LWY1NmUtNDU4ZS04MTAxLWRjNGQ5ZDc2MDZiOSJ9.aE0OVQ.6or-K7iLHyLHv71H6ygDzjvQkv4'
+            'session': session_id
         }
         
         
