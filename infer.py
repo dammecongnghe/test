@@ -30,7 +30,7 @@ async def main():
     url = "https://www.aimoviefinder.com/api/demo/gen-text"
 
     # Define the user's movie description
-    user_description = "A sci-fi film where dreams are shared and manipulated, starring Leonardo DiCaprio."
+    user_description = prompt
 
     # Build the full prompt using f-string
     full_prompt = f"""# YOUR ROLE
