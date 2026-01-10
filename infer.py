@@ -68,7 +68,7 @@ async def main():
     # ---- Build the payload (send as JSON, not form-encoded) ----
     payload = {
         "provider": "openrouter",
-        ""model": "mistralai/devstral-2512:free",
+        "model": "mistralai/devstral-2512:free",
         "prompt": full_prompt,
     }
 
