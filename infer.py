@@ -85,7 +85,7 @@ async def main():
 
     # ---- Call API with error handling ----
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=60)
+        response = requests.post(url, data=payload, headers=headers)
         response.raise_for_status()
     except requests.RequestException as e:
         # If the request fails, write an error page and exit
