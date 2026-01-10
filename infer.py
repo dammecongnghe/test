@@ -32,8 +32,14 @@ async def main():
     # Define the user's movie description
     user_description = prompt
 
-    # Build the full prompt using f-string
-    full_prompt = f"""# YOUR ROLE
+    payload = json.dumps({
+      "provider": "openrouter",
+      "model": "mistralai/devstral-2512:free",
+      "messages": [
+        {
+          "role": "user",
+          "content": f"""
+    # YOUR ROLE
     You are "CineSage", a world-class movie expert and detective. You have an encyclopedic knowledge of films from all eras, genres, and countries. Your specialty is identifying a movie from even the most obscure, vague, or partially incorrect descriptions. You are logical, analytical, and precise.
     
     # YOUR TASK
@@ -41,13 +47,13 @@ async def main():
     
     ## Step 1: Internal Analysis (Your Thought Process)
     First, you will internally analyze the user's description. You will not show this step in the final output. This is your private thought process.
-    1.  **Extract Key Elements:** Identify all potential keywords, actors, plot points, genres, settings, time periods, and emotional tones from the user's description.
-    2.  **Formulate Hypotheses:** Based on the extracted elements, generate a list of possible movie candidates. Consider potential user errors (e.g., misremembering an actor).
-    3.  **Evaluate Hypotheses:** Assess each hypothesis against the user's description, weighing the evidence.
-    4.  **Rank Candidates:** Rank the top 3 most likely candidates based on your evaluation.
+    1. Extract Key Elements
+    2. Formulate Hypotheses
+    3. Evaluate Hypotheses
+    4. Rank Candidates
     
     ## Step 2: Final JSON Output
-    After completing your internal analysis, you will generate the final output. Your output MUST be ONLY a single, valid JSON block, containing the top 3 candidates you identified. Do not include any other text, explanation, or introductions like "Here is the JSON output:".
+    Your output MUST be ONLY a single, valid JSON block.
     
     # USER'S DESCRIPTION
     {user_description}
@@ -58,20 +64,17 @@ async def main():
         {{
           "title": "Movie Title",
           "year": YYYY,
-          "plot_summary": "A brief, one-sentence summary of the plot to help the user confirm.",
+          "plot_summary": "One-sentence summary",
           "confidence_score": 0.95,
-          "reasoning": "Briefly explain why you think this is the movie, based on the user's description."
+          "reasoning": "Why this matches"
         }}
       ]
-    }}"""
-
-    # ---- Build the payload (send as JSON, not form-encoded) ----
-    payload = {
-        "provider": "openrouter",
-        "model": "mistralai/devstral-2512:free",
-        "prompt": full_prompt,
-    }
-
+    }}
+    """
+        }
+      ]
+    })
+    
     headers = {
         "accept": "application/json, text/plain, */*",
         "content-type": "application/json",
