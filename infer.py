@@ -18,7 +18,10 @@ import string
 app = Flask(__name__)
 CORS(app)
 
-
+@app.get("/api/ping", summary="Health check (plain text)", response_class=Response)
+async def ping():
+    return Response(content="pong", media_type="text/plain")
+    
 @app.route("/recommend", methods=["POST"])
 async def main():
 
