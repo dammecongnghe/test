@@ -30,8 +30,8 @@ async def main():
     prompt = data["searchTerm"]
     print(prompt)
 
-    url = "https://www.aimoviefinder.com/api/demo/gen-text"
-    #url = "https://www.aimoviequotes.com/api/ai/free/gen-text"
+    #url = "https://www.aimoviefinder.com/api/demo/gen-text"
+    url = "https://www.aimoviequotes.com/api/ai/free/gen-text"
 
     # Define the user's movie description
     user_description = prompt
